@@ -84,21 +84,20 @@ function App() {
   // Make dynamic grid by changing cell size
   const getGridSize = () => {
     const size = Math.min(
-      window.innerWidth-32 / COLS,
-      window.innerHeight-200 / ROWS,
+      window.innerWidth - 32 / COLS,
+      window.innerHeight - 200 / ROWS,
       20, // Max size
-    )
+    );
     return size;
-  }
+  };
   const [cellSize, setCellSize] = useState(getGridSize());
   useEffect(() => {
     const handleResize = () => {
       setCellSize(getGridSize());
-    }
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [])
-
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
