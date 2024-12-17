@@ -1,5 +1,5 @@
 1. `npm create vite@latest . -- --template react-ts`
-1. `npm install -D tailwindcss postcss autoprefixer`
+1. `npm install -D tailwindcss postcss autoprefixer tailwind-merge`
 1. `npx tailwindcss init -p`
 1. Populate **tailwind.config.js** with this -
 
@@ -23,7 +23,7 @@ export default {
 ```
 
 5. Install prettier and husky `npm install -D husky prettier`
-6. Create a **.prettierignore\***, and a **.prettierrc.config.js**, and this to the latter
+6. Create a **.prettierignore**, and a **.prettierrc.config.js**, and this to the latter
 
 ```js
 export default {
@@ -33,6 +33,7 @@ export default {
   singleQuote: true,
 };
 ```
+
 8. `husky init`
 9. In the **.husky/pre-commit** Add these lines :
 
@@ -58,7 +59,8 @@ export default defineConfig(({ mode }) => {
 });
 ```
 
-12. Add this to the **package.json** 
+12. Add this to the **package.json**
+
 ```js
   "scripts": {
     "dev": "vite --host=0.0.0.0",
