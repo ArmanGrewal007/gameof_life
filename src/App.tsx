@@ -1,8 +1,9 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createEmtpyGrid, ROWS, COLS, DIRECTIONS } from "./utils/utils";
 import { twMerge } from "tailwind-merge";
 import { PlayPauseButton } from "./components/PlayPauseButton";
 import { Button } from "./components/Button";
+import { Select } from "./components/Select";
 
 function App() {
   const [grid, setGrid] = useState<number[][]>(createEmtpyGrid());
@@ -52,7 +53,7 @@ function App() {
       return newGrid;
     });
 
-    setTimeout(runGameofLife, 100); // Run this every 100ms
+    setTimeout(runGameofLife, speedRef.current); // Run this every 100ms
   }, [playingRef, setGrid]);
 
   // Now that each cell is a button, we can add an onClick event to each cell
@@ -74,6 +75,30 @@ function App() {
       return newGrid;
     });
   };
+
+  // Speed controls
+  const [speed, setSpeed] = useState(100);
+  const speedRef = useRef(speed);
+  speedRef.current = speed;
+
+  // Make dynamic grid by changing cell size
+  const getGridSize = () => {
+    const size = Math.min(
+      window.innerWidth-32 / COLS,
+      window.innerHeight-200 / ROWS,
+      20, // Max size
+    )
+    return size;
+  }
+  const [cellSize, setCellSize] = useState(getGridSize());
+  useEffect(() => {
+    const handleResize = () => {
+      setCellSize(getGridSize());
+    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
+
 
   return (
     <>
@@ -113,6 +138,18 @@ function App() {
           >
             Clear
           </Button>
+
+          {/* Select Speed Button */}
+          <Select
+            value={speed}
+            onChange={(e) => setSpeed(parseInt(e.target.value))}
+            label="Speed"
+          >
+            <option value={1000}>Slow</option>
+            <option value={500}>Medium</option>
+            <option value={100}>Fast</option>
+            <option value={50}>Supa Fast</option>
+          </Select>
         </div>
         {/*
       Tailwind generates all the classes at buildtime, so all the utility classes are 
@@ -122,8 +159,8 @@ function App() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: `repeat(${COLS}, 20px)`,
-            gridTemplateRows: `repeat(${ROWS}, 20px)`,
+            gridTemplateColumns: `repeat(${COLS}, ${cellSize}px)`,
+            gridTemplateRows: `repeat(${ROWS}, ${cellSize}px)`,
           }}
         >
           {grid.map((rows, i) =>
