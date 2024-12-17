@@ -13,8 +13,8 @@ export function PlayPauseButton({
       className={twMerge(
         "transition ease-in flex items-center justify-center h-8 w-8 rounded-full shadow-md",
         isPlaying
-          ? "bg-gray-500 hover:bg-gray-700 text-white"
-          : "bg-green-500 hover:bg-green-700 text-white",
+          ? "bg-orange-500 hover:bg-orange-700 text-white"
+          : "bg-emerald-500 hover:bg-emerald-700 text-white",
       )}
       onClick={onClick}
     >

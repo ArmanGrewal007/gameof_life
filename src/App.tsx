@@ -86,7 +86,7 @@ function App() {
     const size = Math.min(
       window.innerWidth - 32 / COLS,
       window.innerHeight - 200 / ROWS,
-      15, // Max size
+      20, // Max size
     );
     return size;
   };
@@ -158,7 +158,7 @@ function App() {
       CSS in classNames, because we cannot pass dynamic values to Tailwind classes.
        */}
         <div
-          className="grid gap-[0.5px] p-2"
+          className="grid gap-[2px] p-2"
           style={{
             gridTemplateColumns: `repeat(${COLS}, ${cellSize}px)`,
             gridTemplateRows: `repeat(${ROWS}, ${cellSize}px)`,
@@ -171,10 +171,10 @@ function App() {
               <button
                 key={`${i}-${j}`}
                 className={twMerge(
-                  "border border-gray-300 aspect-square transition-all duration-100 ease-in-out",
+                  "border border-emerald-100 aspect-square transition-all duration-100 ease-in-out",
                   grid[i][j]
-                    ? "bg-black shadow-md"
-                    : "bg-gray-100 hover:bg-gray-200",
+                    ? "bg-emerald-600 shadow-2xl transform-gpu scale-110 hover:scale-125 rounded-sm cell-wave"
+                    : "bg-emerald-50/50 shadow-2xl hover:scale-125 rounded-sm",
                 )}
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}

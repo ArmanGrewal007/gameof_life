@@ -1,5 +1,5 @@
-export const ROWS = 10;
-export const COLS = 20;
+export const ROWS = 20;
+export const COLS = 30;
 
 // Create an empty grid with all cells set to 0
 export const createEmtpyGrid = () => {
