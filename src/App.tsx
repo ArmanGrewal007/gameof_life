@@ -86,7 +86,7 @@ function App() {
     const size = Math.min(
       window.innerWidth - 32 / COLS,
       window.innerHeight - 200 / ROWS,
-      20, // Max size
+      15, // Max size
     );
     return size;
   };
@@ -101,9 +101,12 @@ function App() {
 
   return (
     <>
-      <div className="flex justify-center items-center flex-col gap-4 h-screen w-screen">
-        <h1 className="text-4xl font-bold my-5">Conway's game of life</h1>
-        <div className="flex gap-4 items-center">
+      <div className="flex items-center flex-col gap-4 px-4 sm:px-8 h-screen">
+        <h1 className="text-2xl sm:text-4xl font-bold my-5 text-center">
+          Conway's Game of Life
+        </h1>
+        <div className="flex gap-4 items-center flex-wrap justify-center">
+          {/* Play/Pause Button */}
           <PlayPauseButton
             isPlaying={isPlaying}
             onClick={() => {
@@ -137,7 +140,6 @@ function App() {
           >
             Clear
           </Button>
-
           {/* Select Speed Button */}
           <Select
             value={speed}
@@ -156,10 +158,12 @@ function App() {
       CSS in classNames, because we cannot pass dynamic values to Tailwind classes.
        */}
         <div
+          className="grid gap-[0.5px] p-2"
           style={{
-            display: "grid",
             gridTemplateColumns: `repeat(${COLS}, ${cellSize}px)`,
             gridTemplateRows: `repeat(${ROWS}, ${cellSize}px)`,
+            maxWidth: "100%",
+            margin: "0 auto",
           }}
         >
           {grid.map((rows, i) =>
@@ -167,8 +171,10 @@ function App() {
               <button
                 key={`${i}-${j}`}
                 className={twMerge(
-                  "border border-[#ccc]",
-                  grid[i][j] ? "bg-black" : "bg-white", // Alive or not (truthy or falsy)
+                  "border border-gray-300 aspect-square transition-all duration-100 ease-in-out",
+                  grid[i][j]
+                    ? "bg-black shadow-md"
+                    : "bg-gray-100 hover:bg-gray-200",
                 )}
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
